@@ -55,3 +55,15 @@ def get_checkin(rezervare):
     :return: returneaza daca a fost sau nu facut checkin-ul
     '''
     return rezervare['checkin']
+
+def get_all(rezervare):
+    '''
+
+    :param rezervare:
+    :return:
+    '''
+    if get_checkin(rezervare)=='Da':
+        checkin='a fost facut'
+    else:
+        checkin='nu a fost facut'
+    return f'Rezervarea cu id-ul {get_id(rezervare)}, apartine lui {get_nume(rezervare)} si are urmatoarele caracteristici: este la clasa {get_clasa(rezervare)}, pretul a fost de:{get_pret(rezervare)}, iar chekinul  {checkin}'

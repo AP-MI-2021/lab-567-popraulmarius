@@ -1,6 +1,10 @@
 from Tests.TESTCRUD import *
+from UserInterface.console import run_ui
+
+
 def main():
-    pass
+    rezervari=[]
+    rezervari= run_ui(rezervari)
 
 if __name__ == '__main__':
     test_create()
