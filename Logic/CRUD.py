@@ -22,7 +22,7 @@ def read(lista_rezervari,id_rezervare):
     :param id_rezervare: id-ul rezervarii pe care trebuie sa il cautam in lista
     :return:
     '''
-    rezercare_cu_id= None
+    rezervare_cu_id= None
     for rezervare in lista_rezervari:
         if get_id(rezervare)== id_rezervare:
             rezervare_cu_id=rezervare

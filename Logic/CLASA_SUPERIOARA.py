@@ -16,12 +16,12 @@ def Upgrade(lista_rezervari,nume_dat):
             else:
                 clasa_noua='business'
             lista_noua.append(
-                {
-                    'id': get_id(rezervare),
-                    'nume':get_nume(rezervare),
-                    'clasa':clasa_noua,
-                    'pret':get_pret(rezervare),
-                    'checkin':get_checkin(rezervare)
-                }
+                [
+                    ('id', get_id(rezervare)),
+                    ('nume',get_nume(rezervare)),
+                    ('clasa',clasa_noua),
+                    ('pret',get_pret(rezervare)),
+                    ('checkin',get_checkin(rezervare))
+                ]
             )
     return lista_noua
