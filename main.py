@@ -7,8 +7,5 @@ def main():
     rezervari= run_ui(rezervari)
 
 if __name__ == '__main__':
-    test_create()
-    test_read()
-    test_update()
-    test_upgrade()
+    test_all()
     main()

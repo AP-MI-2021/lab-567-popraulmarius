@@ -59,3 +59,12 @@ def test_upgrade():
     testeaza daca functia upgrade functioneaza
     '''
     rezervari=get_data()
+    rezervare=creeaza_rezervare(3, 'Ilie', 'economy plus', 300, 'Da')
+    rezervari=Upgrade(rezervari,'Ilie')
+    assert rezervare in rezervari
+
+def test_all():
+    test_create()
+    test_read()
+    test_update()
+    test_upgrade()

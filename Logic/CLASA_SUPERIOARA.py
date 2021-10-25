@@ -1,5 +1,11 @@
 from Domain.Rezervari import *
 def Upgrade(lista_rezervari,nume_dat):
+    '''
+    Trece la o clasa superioara rezervarea unui nume dat
+    :param lista_rezervari: lista de rezervari actuala
+    :param nume_dat: numele persoanei care trebuie sa i se faca upgrade de clasa
+    :return: lista dupa upgrade
+    '''
     lista_noua=[]
     for rezervare in lista_rezervari:
         if get_nume(rezervare) != nume_dat:

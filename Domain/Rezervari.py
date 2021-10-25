@@ -58,9 +58,8 @@ def get_checkin(rezervare):
 
 def get_all(rezervare):
     '''
-
-    :param rezervare:
-    :return:
+    afiseaza toate datele despre rezervare
+    :param rezervare:rezervarea pentru care se afiseaza datele
     '''
     if get_checkin(rezervare)=='Da':
         checkin='a fost facut'
