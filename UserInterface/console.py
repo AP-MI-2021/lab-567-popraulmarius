@@ -36,10 +36,10 @@ def adaugare(rezervari):
         if checkin_rezervare not in ['Da', 'Nu']:
             raise ValueError(f'Singurele varinate de checkin acceptate sunt : Da sau Nu')
         print('Adaugarea a fost inregistrata.')
-
         return create(rezervari, id_rezervare, nume_rezervare, clasa_rezervare, pret_rezervare, checkin_rezervare)
     except ValueError as ve:
         print("Eroarea:",ve)
+    return rezervari
 
 def afisare(rezervari):
     """
