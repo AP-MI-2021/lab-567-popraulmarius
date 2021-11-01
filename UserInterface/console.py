@@ -1,6 +1,7 @@
 from Domain.Rezervari import get_all
 from Logic.CRUD import *
 from Logic.CLASA_SUPERIOARA import Upgrade
+from Logic.ieftinire import *
 
 
 def show_menu():
@@ -109,6 +110,9 @@ def run_ui(rezervari):
         elif optiune == '2':
             nume_upgrade = input('Dati numele persoanei careia vreti sa ii upgradati clasa:')
             rezervari = Upgrade(rezervari, nume_upgrade)
+        elif optiune == '3':
+            procent_ieftinire=int(input('Dati procentul cu care vreti sa se ieftineasca pretul biletelor'))
+            rezervari= ieftinire_checkin(rezervari, procent_ieftinire)
         elif optiune == '8':
             break
         elif optiune == 'a':

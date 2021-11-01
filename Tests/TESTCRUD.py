@@ -1,6 +1,7 @@
 from Domain.Rezervari import creeaza_rezervare, get_id
 from Logic.CLASA_SUPERIOARA import Upgrade
 from Logic.CRUD import create,read,update,delete
+from Logic.ieftinire import ieftinire_checkin
 def get_data():
     '''
     :return: returneaza un set de date pentru care se fac testele
@@ -8,7 +9,7 @@ def get_data():
     return [
         creeaza_rezervare(1,'Mihai','economy plus',700,'Da'),
         creeaza_rezervare(2, 'Alexandra', 'economy plus', 650, 'Nu'),
-        creeaza_rezervare(3, 'Ilie', 'economy', 300, 'Da'),
+        creeaza_rezervare(3, 'Ilie', 'economy', 100, 'Da'),
         creeaza_rezervare(4, 'Matei', 'economy plus', 500, 'Da'),
         creeaza_rezervare(5, 'George', 'business', 1700, 'Nu'),
         creeaza_rezervare(6, 'Mihaela', 'economy', 400, 'Da')
@@ -63,8 +64,19 @@ def test_upgrade():
     rezervari=Upgrade(rezervari,'Ilie')
     assert rezervare in rezervari
 
+def test_ieftinire():
+    '''
+    testeaza daca functia ieftinire functioneaza
+    '''
+    rezervari = get_data()
+    rezervare= creeaza_rezervare(3, 'Ilie', 'economy', 70, 'Da')
+    rezervari= ieftinire_checkin(rezervari, 30)
+    print (rezervari)
+    print(rezervare)
+
 def test_all():
     test_create()
     test_read()
     test_update()
-    test_upgrade()
+    '''test_upgrade()'''
+    test_ieftinire()
