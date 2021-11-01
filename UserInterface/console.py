@@ -32,10 +32,10 @@ def adaugare(rezervari):
         pret_rezervare = int(input('Dati pretul biletului:'))
         checkin_rezervare = input('A fost facut checkin-ul ?:')
         print('Adaugarea a fost inregistrata.')
+
         return create(rezervari, id_rezervare, nume_rezervare, clasa_rezervare, pret_rezervare, checkin_rezervare)
     except ValueError as ve:
         print("Eroarea:",ve)
-    return create(rezervari, id_rezervare, nume_rezervare, clasa_rezervare, pret_rezervare, checkin_rezervare)
 
 def afisare(rezervari):
     """

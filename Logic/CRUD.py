@@ -12,12 +12,8 @@ def create(lista_rezervari,id_rezervare,nume, clasa, pret, checkin):
     :param checkin: specifica daca a fost sau nu facut check-in-ul
     :return: lista actualizata cu noua rezervare
     '''
-    if read(lista_rezervari,id_rezervare) is not None:
+    if read(lista_rezervari, id_rezervare) is not None:
         raise ValueError(f"Exista deja o rezervare cu id-ul {id_rezervare}.")
-    if clasa not in ['economy','economy plus','business']:
-        raise ValueError(f"Singurele varinate de clase acceptate sunt: economy, economy plus si business")
-    if checkin not in ['Da','Nu']:
-        raise ValueError(f'Singurele varinate de checkin acceptate sunt : Da sau Nu')
     rezervare= creeaza_rezervare(id_rezervare,nume,clasa,pret,checkin)
     return lista_rezervari + [rezervare]
 
