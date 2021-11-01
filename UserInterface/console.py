@@ -1,6 +1,7 @@
 from Logic.CRUD import *
 from Logic.CLASA_SUPERIOARA import Upgrade
 from Logic.ieftinire import *
+from UserInterface.command_line import command_line
 
 
 def show_menu():
@@ -15,6 +16,7 @@ def show_menu():
     print('6.Afiseaza suma preturilor pentru fiecare pasager in parte.')
     print('7.Undo')
     print('8.Exit')
+    print('9.Command_line_console.')
     print('a.Afiseaza lista')
 
 
@@ -135,4 +137,7 @@ def run_ui(rezervari):
             break
         elif optiune == 'a':
             afisare(rezervari)
+        elif optiune == '9':
+            rezervari=command_line(rezervari)
+
     return rezervari
