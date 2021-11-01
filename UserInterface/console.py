@@ -31,6 +31,10 @@ def adaugare(rezervari):
         clasa_rezervare = input('Dati clasa rezervarii:')
         pret_rezervare = int(input('Dati pretul biletului:'))
         checkin_rezervare = input('A fost facut checkin-ul ?:')
+        if clasa_rezervare not in ['economy', 'economy plus', 'business']:
+            raise ValueError(f"Singurele varinate de clase acceptate sunt:economy, economy plus si business")
+        if checkin_rezervare not in ['Da', 'Nu']:
+            raise ValueError(f'Singurele varinate de checkin acceptate sunt : Da sau Nu')
         print('Adaugarea a fost inregistrata.')
 
         return create(rezervari, id_rezervare, nume_rezervare, clasa_rezervare, pret_rezervare, checkin_rezervare)
