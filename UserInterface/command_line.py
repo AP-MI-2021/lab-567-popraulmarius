@@ -26,7 +26,7 @@ def stergere2(rezervari,lst3):
                 :return: rezervarile dupa stergere
                 """
                 try:
-                    id_sters = lst3[1]
+                    id_sters = int(lst3[1])
                     rezervari = delete(rezervari, id_sters)
                     print("Stergerea a fost efectuata cu succes.")
                     return rezervari
