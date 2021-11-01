@@ -12,6 +12,12 @@ def create(lista_rezervari,id_rezervare,nume, clasa, pret, checkin):
     :param checkin: specifica daca a fost sau nu facut check-in-ul
     :return: lista actualizata cu noua rezervare
     '''
+    if read(lista_rezervari,id_rezervare) is not None:
+        raise ValueError(f"Exista deja o rezervare cu id-ul {id_rezervare}.")
+    if clasa not in ['economy','economy plus','business']:
+        raise ValueError(f"Singurele varinate de clase acceptate sunt: economy, economy plus si business")
+    if checkin not in ['Da','Nu']:
+        raise ValueError(f'Singurele varinate de checkin acceptate sunt : Da sau Nu')
     rezervare= creeaza_rezervare(id_rezervare,nume,clasa,pret,checkin)
     return lista_rezervari + [rezervare]
 
@@ -22,6 +28,8 @@ def read(lista_rezervari,id_rezervare):
     :param id_rezervare: id-ul rezervarii pe care trebuie sa il cautam in lista
     :return:
     '''
+    if not id_rezervare:
+        return lista_rezervari
     rezervare_cu_id= None
     for rezervare in lista_rezervari:
         if get_id(rezervare)== id_rezervare:
@@ -29,7 +37,7 @@ def read(lista_rezervari,id_rezervare):
 
     if rezervare_cu_id:
         return rezervare_cu_id
-    return lista_rezervari
+    return None
 
 def delete(lista_rezervari,id_rezervare):
     """
@@ -38,6 +46,8 @@ def delete(lista_rezervari,id_rezervare):
     :param id_rezervare: id-ul rezervarii pe care vrem sa o stergem
     :return: lista nou creata fara rezervarea care trebuia sa fie eliminata
     """
+    if read(lista_rezervari,id_rezervare) is None:
+        raise ValueError(f'Nu exista o rezervare cu id-ul {id_rezervare}pe care sa o stergem.')
     lista_noua=[]
     for rezervare in lista_rezervari:
         if get_id(rezervare) != id_rezervare:
@@ -51,6 +61,8 @@ def update(lista_rezervari, rezervare_noua):
     :param rezervare_noua: rezervarea noua facuta care trebuie adaugata
     :return: returneaza o lista noua, updatata cu noua rezervare facuta
     """
+    if read(lista_rezervari,get_id(rezervare_noua)) is None:
+        raise ValueError(f"Nu exista o prajitura cu id-ul {get_id(rezervare_noua)}pe care sa o actualizam")
     lista_noua=[]
     for rezervare in lista_rezervari:
         if get_id(rezervare) != get_id(rezervare_noua):

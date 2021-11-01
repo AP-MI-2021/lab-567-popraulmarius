@@ -25,14 +25,17 @@ def adaugare(rezervari):
     :param rezervari: lista cu rezervarile actuale
     :return: lista cu rezervarea adaugata
     """
-    id_rezervare = int(input('Dati id-ul rezervarii:'))
-    nume_rezervare = input('Dati numele celui care a facut rezervarea:')
-    clasa_rezervare = input('Dati clasa rezervarii:')
-    pret_rezervare = int(input('Dati pretul biletului:'))
-    checkin_rezervare = input('A fost facut checkin-ul ?:')
-    print('Adaugarea a fost inregistrata.')
+    try:
+        id_rezervare = int(input('Dati id-ul rezervarii:'))
+        nume_rezervare = input('Dati numele celui care a facut rezervarea:')
+        clasa_rezervare = input('Dati clasa rezervarii:')
+        pret_rezervare = int(input('Dati pretul biletului:'))
+        checkin_rezervare = input('A fost facut checkin-ul ?:')
+        print('Adaugarea a fost inregistrata.')
+        return create(rezervari, id_rezervare, nume_rezervare, clasa_rezervare, pret_rezervare, checkin_rezervare)
+    except ValueError as ve:
+        print("Eroarea:",ve)
     return create(rezervari, id_rezervare, nume_rezervare, clasa_rezervare, pret_rezervare, checkin_rezervare)
-
 
 def afisare(rezervari):
     """
@@ -49,9 +52,13 @@ def stergere(rezervari):
     :param rezervari: rezervarile actuale
     :return: rezervarile dupa stergere
     """
-    id_sters = int(input("Dati id-ul rezervarii pe care doriti sa o eliminati"))
-    rezervari = delete(rezervari, id_sters)
-    print("Stergerea a fost efectuata cu succes.")
+    try:
+        id_sters = int(input("Dati id-ul rezervarii pe care doriti sa o eliminati"))
+        rezervari = delete(rezervari, id_sters)
+        print("Stergerea a fost efectuata cu succes.")
+        return rezervari
+    except ValueError as ve:
+        print('Eroare:',ve)
     return rezervari
 
 
@@ -108,11 +115,19 @@ def run_ui(rezervari):
         if optiune == '1':
             rezervari = CRUD_MENU(rezervari)
         elif optiune == '2':
-            nume_upgrade = input('Dati numele persoanei careia vreti sa ii upgradati clasa:')
-            rezervari = Upgrade(rezervari, nume_upgrade)
+            try:
+                nume_upgrade = input('Dati numele persoanei careia vreti sa ii upgradati clasa:')
+                rezervari = Upgrade(rezervari, nume_upgrade)
+                print("Upgrade-ul s-a realizat.")
+            except ValueError as ve:
+                print ('Eroare',ve)
         elif optiune == '3':
-            procent_ieftinire=int(input('Dati procentul cu care vreti sa se ieftineasca pretul biletelor'))
-            rezervari= ieftinire_checkin(rezervari, procent_ieftinire)
+            try:
+                procent_ieftinire=float(input('Dati procentul cu care vreti sa se ieftineasca pretul biletelor(intre 0 si 100'))
+                rezervari= ieftinire_checkin(rezervari, procent_ieftinire)
+                print('preturile au fost reduse.')
+            except ValueError as ve:
+                print('Eroare',ve)
         elif optiune == '8':
             break
         elif optiune == 'a':
