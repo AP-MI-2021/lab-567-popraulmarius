@@ -1,4 +1,3 @@
-from Domain.Rezervari import get_all
 from Logic.CRUD import *
 from Logic.CLASA_SUPERIOARA import Upgrade
 from Logic.ieftinire import *
