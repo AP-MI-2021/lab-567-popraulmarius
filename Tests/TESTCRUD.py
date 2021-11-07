@@ -1,7 +1,7 @@
 from Domain.Rezervari import creeaza_rezervare, get_id
 from Logic.CLASA_SUPERIOARA import Upgrade
 from Logic.CRUD import create,read,update,delete
-from Logic.ieftinire import ieftinire_checkin
+from Logic.cerinte import ieftinire_checkin
 def get_data():
     '''
     :return: returneaza un set de date pentru care se fac testele

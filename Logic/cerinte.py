@@ -24,3 +24,28 @@ def ieftinire_checkin(lista_rezervari, procent_dat):
             )
 
     return lista_noua
+
+def pret_max (lista_rezervari):
+    preturi={}
+    for rezervare in lista_rezervari:
+        clasa=get_clasa(rezervare)
+        pret=get_pret(rezervare)
+        if clasa in preturi:
+            if pret > preturi[clasa]:
+                preturi[clasa]=pret
+        else:
+            preturi[clasa]=pret
+    return preturi
+
+def pret_pasager(lista_rezervari):
+    tarife_nume={}
+    for rezervare in lista_rezervari:
+        nume=get_nume(rezervare)
+        pret=get_pret(rezervare)
+        if nume in tarife_nume:
+            tarife_nume[nume]+=pret
+        else:
+            tarife_nume[nume]=pret
+    return tarife_nume
+def ordonare_desc(lista_rezervari):
+    return sorted(lista_rezervari,key=lambda rezervare : get_pret(rezervare),reverse=1)

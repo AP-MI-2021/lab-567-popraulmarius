@@ -1,8 +1,6 @@
-from Logic.CRUD import *
-from Logic.CLASA_SUPERIOARA import Upgrade
-from Logic.ieftinire import *
+from Logic.cerinte import *
 from UserInterface.command_line import command_line
-
+from Tests.TESTCRUD import *
 
 def show_menu():
     """
@@ -14,11 +12,11 @@ def show_menu():
     print('4.Determina pretul maxim pentru fiecare clasa.')
     print('5.Ordoneaza rezervarilor descrescator dupa pret.')
     print('6.Afiseaza suma preturilor pentru fiecare pasager in parte.')
-    print('7.Undo')
-    print('8.Exit')
-    print('9.Command_line_console.')
+    print('7.Command_line_console.')
     print('a.Afiseaza lista')
-
+    print('u.Undo')
+    print ('r.Redo')
+    print('e.Exit')
 
 def adaugare(rezervari):
     """
@@ -114,6 +112,7 @@ def run_ui(rezervari):
     :param rezervari: lista cu rezervari
     :return: lista cu rezervari dupa modificarile aferente
     """
+    rezervari = get_data()
     while True:
         show_menu()
         optiune = input('Alege optiunea: ')
@@ -133,11 +132,24 @@ def run_ui(rezervari):
                 print('preturile au fost reduse.')
             except ValueError as ve:
                 print('Eroare',ve)
-        elif optiune == '8':
+        elif optiune == '4':
+            print(pret_max(rezervari))
+        elif optiune == '5':
+            rezervari=ordonare_desc(rezervari)
+        elif optiune =='6':
+            print(pret_pasager(rezervari))
+        elif optiune =='u':
+            pass
+        elif optiune == 'e':
             break
         elif optiune == 'a':
             afisare(rezervari)
-        elif optiune == '9':
+        elif optiune == '7':
             rezervari=command_line(rezervari)
+        elif optiune =='r':
+            pass
+        else:
+            print("ati introdus o optiune gresita")
+
 
     return rezervari

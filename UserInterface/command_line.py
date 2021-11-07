@@ -1,5 +1,5 @@
 from Logic.CRUD import *
-from Logic.ieftinire import *
+from Logic.cerinte import *
 
 def command_line(rezervari):
     m = input("Da lista de operatii pe care vrei sa le faca programul(operatii posibile : add, showall, delete, despartite prin ;, in cadrul comenzii itemele trebuie despartite doar prin virgula, fara spatii albe:")
