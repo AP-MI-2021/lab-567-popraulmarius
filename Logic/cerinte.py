@@ -53,3 +53,18 @@ def ordonare_desc(lista_rezervari,undo_list,redo_list):
     undo_list.append(lista_rezervari)
     redo_list.clear()
     return sorted(lista_rezervari,key=lambda rezervare : get_pret(rezervare),reverse=1)
+
+def do_undo(lista_rezervari,undo_list, redo_list):
+        if undo_list:
+            top_undo = undo_list.pop()
+            redo_list.append(top_undo)
+            return top_undo
+        return lista_rezervari
+
+
+def do_redo(lista_rezervari,undo_list, redo_list):
+    if redo_list:
+        top_redo = redo_list.pop()
+        undo_list.append(top_redo)
+        return top_redo
+    return lista_rezervari

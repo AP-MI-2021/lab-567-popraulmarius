@@ -1,4 +1,4 @@
-from Tests.TESTCRUD import *
+from Tests.TESTALL import *
 from UserInterface.console import run_ui
 
 

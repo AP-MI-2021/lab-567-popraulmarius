@@ -15,6 +15,8 @@ def create(lista_rezervari,id_rezervare,nume, clasa, pret, checkin,undo_list,red
     if read(lista_rezervari, id_rezervare) is not None:
         raise ValueError(f"Exista deja o rezervare cu id-ul {id_rezervare}.")
     rezervare= creeaza_rezervare(id_rezervare,nume,clasa,pret,checkin)
+    undo_list.append(lista_rezervari)
+    redo_list.clear()
     return lista_rezervari + [rezervare]
 
 def read(lista_rezervari,id_rezervare):

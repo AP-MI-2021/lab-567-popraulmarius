@@ -1,6 +1,7 @@
 from Logic.CLASA_SUPERIOARA import Upgrade
 from Logic.CRUD import create,read,update,delete
 from Logic.cerinte import *
+
 def get_data():
     '''
     :return: returneaza un set de date pentru care se fac testele
@@ -94,6 +95,64 @@ def test_ord_desc():
 def test_suma_pret():
     rezervari = get_data()
     assert pret_pasager(rezervari)=={'Mihai': 700, 'Alexandra': 650, 'Ilie': 100, 'Matei': 500, 'George': 1700, 'Mihaela': 400}
+
+def test_undo_redo():
+    rezervari=[]
+    undo_list=[]
+    redo_list=[]
+    rezervari= create(rezervari,1, 'Mihai', 'economy plus', 700, 'Da',undo_list,redo_list)
+    assert rezervari==
+    rezervari=create(rezervari,2, 'Alexandra', 'economy plus', 650, 'Nu', undo_list,redo_list)
+    assert rezervari==
+    rezervari=create(rezervari,3, 'Ilie', 'economy', 100, 'Da',undo_list,redo_list)
+    assert rezervari==
+    rezervari=do_undo(rezervari,undo_list,redo_list)
+    assert rezervari==
+    rezervari=do_undo(rezervari,undo_list,redo_list)
+    assert rezervari==
+    rezervari=do_undo(rezervari,undo_list, redo_list)
+    assert rezervari==
+    rezervari=do_undo(rezervari,undo_list, redo_list)
+    assert rezervari==
+    rezervari = create(rezervari,4, 'Mihai', 'economy plus', 700, 'Da', undo_list, redo_list)
+    assert rezervari==
+    rezervari = create(rezervari,5, 'Alexandra', 'economy plus', 650, 'Nu', undo_list, redo_list)
+    assert rezervari==
+    rezervari = create(rezervari,6, 'Ilie', 'economy', 100, 'Da', undo_list, redo_list)
+    assert rezervari==
+    rezervari = do_redo(rezervari,undo_list, redo_list)
+    assert rezervari==
+    rezervari = do_undo(rezervari,undo_list, redo_list)
+    assert rezervari==
+    rezervari = do_undo(rezervari,undo_list, redo_list)
+    assert rezervari==
+    rezervari = do_redo(rezervari,undo_list, redo_list)
+    assert rezervari==
+    rezervari = do_redo(rezervari,undo_list, redo_list)
+    assert rezervari==
+    rezervari = do_undo(rezervari,undo_list, redo_list)
+    assert rezervari==
+    rezervari = do_undo(rezervari,undo_list, redo_list)
+    assert rezervari==
+    rezervari = create(rezervari,7, 'Ilie', 'economy', 100, 'Da', undo_list, redo_list)
+    assert rezervari==
+    rezervari = do_redo(rezervari,undo_list, redo_list)
+    assert rezervari==
+    rezervari = do_undo(rezervari,undo_list, redo_list)
+    assert rezervari==
+    rezervari = do_undo(rezervari,undo_list, redo_list)
+    assert rezervari==
+    rezervari = do_redo(rezervari, undo_list, redo_list)
+    assert rezervari==
+    rezervari = do_redo(rezervari,undo_list, redo_list)
+    assert rezervari==
+    rezervari = do_redo(rezervari,undo_list, redo_list)
+    assert rezervari==
+
+
+
+
+
 def test_all():
     test_create()
     test_read()
@@ -103,3 +162,4 @@ def test_all():
     test_pret_max()
     test_suma_pret()
     test_ord_desc()
+    test_undo_redo()

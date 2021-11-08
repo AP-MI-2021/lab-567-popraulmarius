@@ -1,6 +1,5 @@
-from Logic.cerinte import *
 from UserInterface.command_line import command_line
-from Tests.TESTCRUD import *
+from Tests.TESTALL import *
 
 def show_menu():
     """
@@ -35,10 +34,7 @@ def adaugare(rezervari,undo_list,redo_list):
         if checkin_rezervare not in ['Da', 'Nu']:
             raise ValueError(f'Singurele varinate de checkin acceptate sunt : Da sau Nu')
         print('Adaugarea a fost inregistrata.')
-        rezultat= create(rezervari, id_rezervare, nume_rezervare, clasa_rezervare, pret_rezervare, checkin_rezervare,undo_list,redo_list)
-        undo_list.append(rezervari)
-        redo_list.clear()
-        return rezultat
+        return create(rezervari, id_rezervare, nume_rezervare, clasa_rezervare, pret_rezervare, checkin_rezervare,undo_list,redo_list)
     except ValueError as ve:
         print("Eroarea:",ve)
     return rezervari
@@ -153,18 +149,10 @@ def run_ui(rezervari):
         elif optiune == '7':
             rezervari=command_line(rezervari)
         elif optiune == 'u':
-            if len(undo_list) > 0:
-                print('S-a efectuat undo.')
-                redo_list.append(rezervari)
-                rezervari = undo_list.pop()
-            else:
-                print('Nu se poate face Undo.')
+          rezervari=do_undo(rezervari,undo_list,redo_list)
         elif optiune =='r':
-            if len(redo_list)>0:
-                rezervari=redo_list.pop()
-                print('S-a efectuat redo.')
-            else:
-                print('Nu se poate face redo.')
+            rezervari=do_redo(rezervari,undo_list,redo_list)
         else:
             print("ati introdus o optiune gresita")
     return rezervari
+
