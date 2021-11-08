@@ -8,6 +8,8 @@ def Upgrade(lista_rezervari,nume_dat,undo_list,redo_list):
     :return: lista dupa upgrade
     '''
     ok=None
+    if lista_rezervari== None:
+        return lista_rezervari
     for rezervare in lista_rezervari:
         if get_nume(rezervare)==nume_dat:
             ok=1

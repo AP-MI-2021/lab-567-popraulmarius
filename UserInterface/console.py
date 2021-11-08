@@ -44,8 +44,11 @@ def afisare(rezervari):
     afiseaza toate rezervarile facute
     :param rezervari: rezervarile facute
     """
-    for rezervare in rezervari:
-        print(get_all(rezervare))
+    if rezervari==None:
+        print(rezervari)
+    else:
+        for rezervare in rezervari:
+            print(get_all(rezervare))
 
 
 def stergere(rezervari,undo_list,redo_list):
@@ -72,16 +75,19 @@ def modificare(rezervari,undo_list,redo_list):
     :param rezervari: rezervarile curente
     :return: rezervarile dupa modificarea facuta
     """
-    id_rezervare = int(input('Dati id-ul rezervarii pe care vreti sa o modificati:'))
-    nume_rezervare = input('Dati numele celui care a facut rezervarea:')
-    clasa_rezervare = input('Dati clasa rezervarii:')
-    pret_rezervare = int(input('Dati pretul biletului:'))
-    checkin_rezervare = input('A fost facut checkin-ul ?:')
-    print("Modificarea s-a efectuat cu succes.")
-    rezultat =update(rezervari,creeaza_rezervare(id_rezervare, nume_rezervare, clasa_rezervare, pret_rezervare, checkin_rezervare),undo_list,redo_list)
-    undo_list.append(rezervari)
-    redo_list.clear()
-    return rezultat
+
+    try:
+        id_rezervare = int(input('Dati id-ul rezervarii pe care vreti sa o modificati:'))
+        nume_rezervare = input('Dati numele celui care a facut rezervarea:')
+        clasa_rezervare = input('Dati clasa rezervarii:')
+        pret_rezervare = int(input('Dati pretul biletului:'))
+        checkin_rezervare = input('A fost facut checkin-ul ?:')
+        rezultat =update(rezervari,creeaza_rezervare(id_rezervare, nume_rezervare, clasa_rezervare, pret_rezervare, checkin_rezervare),undo_list,redo_list)
+        undo_list.append(rezervari)
+        redo_list.clear()
+        return rezultat
+    except ValueError as ve:
+        print('Eroare',ve)
 
 def CRUD_MENU(rezervari,undo_list,redo_list):
     """

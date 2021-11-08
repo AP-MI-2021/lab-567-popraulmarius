@@ -29,12 +29,12 @@ def read(lista_rezervari,id_rezervare):
     if not id_rezervare:
         return lista_rezervari
     rezervare_cu_id= None
-    for rezervare in lista_rezervari:
-        if get_id(rezervare)== id_rezervare:
-            rezervare_cu_id=rezervare
-
-    if rezervare_cu_id:
-        return rezervare_cu_id
+    if lista_rezervari != None:
+        for rezervare in lista_rezervari:
+            if get_id(rezervare)== id_rezervare:
+                rezervare_cu_id=rezervare
+        if rezervare_cu_id:
+            return rezervare_cu_id
     return None
 
 def delete(lista_rezervari,id_rezervare,undo_list,redo_list):
