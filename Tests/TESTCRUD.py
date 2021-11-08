@@ -1,7 +1,6 @@
-from Domain.Rezervari import creeaza_rezervare, get_id
 from Logic.CLASA_SUPERIOARA import Upgrade
 from Logic.CRUD import create,read,update,delete
-from Logic.cerinte import ieftinire_checkin
+from Logic.cerinte import *
 def get_data():
     '''
     :return: returneaza un set de date pentru care se fac testele
@@ -84,11 +83,17 @@ def test_ieftinire():
     assert rezervare in rezervari
 
 def test_pret_max():
-    pass
+    rezervari=get_data()
+    assert pret_max(rezervari)=={'economy plus': 700, 'economy': 400, 'business': 1700}
 def test_ord_desc():
-    pass
+    rezervari = get_data()
+    undo_list=[]
+    redo_list=[]
+    assert ordonare_desc(rezervari,undo_list,redo_list)==[[('id', 5), ('nume', 'George'), ('clasa', 'business'), ('pret', 1700), ('checkin', 'Nu')], [('id', 1), ('nume', 'Mihai'), ('clasa', 'economy plus'), ('pret', 700), ('checkin', 'Da')], [('id', 2), ('nume', 'Alexandra'), ('clasa', 'economy plus'), ('pret', 650), ('checkin', 'Nu')], [('id', 4), ('nume', 'Matei'), ('clasa', 'economy plus'), ('pret', 500), ('checkin', 'Da')], [('id', 6), ('nume', 'Mihaela'), ('clasa', 'economy'), ('pret', 400), ('checkin', 'Da')], [('id', 3), ('nume', 'Ilie'), ('clasa', 'economy'), ('pret', 100), ('checkin', 'Da')]]
+
 def test_suma_pret():
-    pass
+    rezervari = get_data()
+    assert pret_pasager(rezervari)=={'Mihai': 700, 'Alexandra': 650, 'Ilie': 100, 'Matei': 500, 'George': 1700, 'Mihaela': 400}
 def test_all():
     test_create()
     test_read()
