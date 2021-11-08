@@ -25,9 +25,11 @@ def stergere2(rezervari,lst3):
                 :param rezervari: rezervarile actuale
                 :return: rezervarile dupa stergere
                 """
+                undo_list=[]
+                redo_list=[]
                 try:
                     id_sters = int(lst3[1])
-                    rezervari = delete(rezervari, id_sters)
+                    rezervari = delete(rezervari, id_sters,undo_list,redo_list)
                     print("Stergerea a fost efectuata cu succes.")
                     return rezervari
                 except ValueError as ve:
@@ -40,6 +42,8 @@ def adaugare2(rezervari,lst3):
                 :param rezervari: lista cu rezervarile actuale
                 :return: lista cu rezervarea adaugata
                 """
+                undo_list=[]
+                redo_list=[]
                 try:
                     id_rezervare = int(lst3[1])
                     nume_rezervare = lst3[2]
@@ -53,7 +57,7 @@ def adaugare2(rezervari,lst3):
                         raise ValueError(f'Singurele varinate de checkin acceptate sunt : Da sau Nu')
                     print('Adaugarea a fost inregistrata.')
                     return create(rezervari, id_rezervare, nume_rezervare, clasa_rezervare, pret_rezervare,
-                                  checkin_rezervare)
+                                  checkin_rezervare,undo_list,redo_list)
                 except ValueError as ve:
                     print("Eroarea:", ve)
                 return rezervari
