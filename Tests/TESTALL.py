@@ -101,53 +101,73 @@ def test_undo_redo():
     undo_list=[]
     redo_list=[]
     rezervari= create(rezervari,1, 'Mihai', 'economy plus', 700, 'Da',undo_list,redo_list)
-    assert rezervari==
+    assert rezervari==[[('id', 1), ('nume', 'Mihai'), ('clasa', 'economy plus'), ('pret', 700), ('checkin', 'Da')]]
+
     rezervari=create(rezervari,2, 'Alexandra', 'economy plus', 650, 'Nu', undo_list,redo_list)
-    assert rezervari==
+    assert rezervari==[[('id', 1), ('nume', 'Mihai'), ('clasa', 'economy plus'), ('pret', 700), ('checkin', 'Da')], [('id', 2), ('nume', 'Alexandra'), ('clasa', 'economy plus'), ('pret', 650), ('checkin', 'Nu')]]
+
     rezervari=create(rezervari,3, 'Ilie', 'economy', 100, 'Da',undo_list,redo_list)
-    assert rezervari==
+    assert rezervari==[[('id', 1), ('nume', 'Mihai'), ('clasa', 'economy plus'), ('pret', 700), ('checkin', 'Da')], [('id', 2), ('nume', 'Alexandra'), ('clasa', 'economy plus'), ('pret', 650), ('checkin', 'Nu')], [('id', 3), ('nume', 'Ilie'), ('clasa', 'economy'), ('pret', 100), ('checkin', 'Da')]]
+
     rezervari=do_undo(rezervari,undo_list,redo_list)
-    assert rezervari==
+    assert rezervari==[[('id', 1), ('nume', 'Mihai'), ('clasa', 'economy plus'), ('pret', 700), ('checkin', 'Da')], [('id', 2), ('nume', 'Alexandra'), ('clasa', 'economy plus'), ('pret', 650), ('checkin', 'Nu')]]
+
     rezervari=do_undo(rezervari,undo_list,redo_list)
-    assert rezervari==
+    assert rezervari==[[('id', 1), ('nume', 'Mihai'), ('clasa', 'economy plus'), ('pret', 700), ('checkin', 'Da')]]
+
     rezervari=do_undo(rezervari,undo_list, redo_list)
-    assert rezervari==
+    assert rezervari==[]
     rezervari=do_undo(rezervari,undo_list, redo_list)
-    assert rezervari==
+    assert rezervari==[]
+
     rezervari = create(rezervari,4, 'Mihai', 'economy plus', 700, 'Da', undo_list, redo_list)
-    assert rezervari==
+    assert rezervari==[[('id', 4), ('nume', 'Mihai'), ('clasa', 'economy plus'), ('pret', 700), ('checkin', 'Da')]]
+
     rezervari = create(rezervari,5, 'Alexandra', 'economy plus', 650, 'Nu', undo_list, redo_list)
-    assert rezervari==
+    assert rezervari==[[('id', 4), ('nume', 'Mihai'), ('clasa', 'economy plus'), ('pret', 700), ('checkin', 'Da')], [('id', 5), ('nume', 'Alexandra'), ('clasa', 'economy plus'), ('pret', 650), ('checkin', 'Nu')]]
+
     rezervari = create(rezervari,6, 'Ilie', 'economy', 100, 'Da', undo_list, redo_list)
-    assert rezervari==
+    assert rezervari==[[('id', 4), ('nume', 'Mihai'), ('clasa', 'economy plus'), ('pret', 700), ('checkin', 'Da')], [('id', 5), ('nume', 'Alexandra'), ('clasa', 'economy plus'), ('pret', 650), ('checkin', 'Nu')], [('id', 6), ('nume', 'Ilie'), ('clasa', 'economy'), ('pret', 100), ('checkin', 'Da')]]
+
     rezervari = do_redo(rezervari,undo_list, redo_list)
-    assert rezervari==
+    assert rezervari==[[('id', 4), ('nume', 'Mihai'), ('clasa', 'economy plus'), ('pret', 700), ('checkin', 'Da')], [('id', 5), ('nume', 'Alexandra'), ('clasa', 'economy plus'), ('pret', 650), ('checkin', 'Nu')], [('id', 6), ('nume', 'Ilie'), ('clasa', 'economy'), ('pret', 100), ('checkin', 'Da')]]
+
     rezervari = do_undo(rezervari,undo_list, redo_list)
-    assert rezervari==
+    assert rezervari==[[('id', 4), ('nume', 'Mihai'), ('clasa', 'economy plus'), ('pret', 700), ('checkin', 'Da')], [('id', 5), ('nume', 'Alexandra'), ('clasa', 'economy plus'), ('pret', 650), ('checkin', 'Nu')]]
+
     rezervari = do_undo(rezervari,undo_list, redo_list)
-    assert rezervari==
+    assert rezervari==[[('id', 4), ('nume', 'Mihai'), ('clasa', 'economy plus'), ('pret', 700), ('checkin', 'Da')]]
+
     rezervari = do_redo(rezervari,undo_list, redo_list)
-    assert rezervari==
+    assert rezervari==[[('id', 4), ('nume', 'Mihai'), ('clasa', 'economy plus'), ('pret', 700), ('checkin', 'Da')]]
+
     rezervari = do_redo(rezervari,undo_list, redo_list)
-    assert rezervari==
+    assert rezervari==[[('id', 4), ('nume', 'Mihai'), ('clasa', 'economy plus'), ('pret', 700), ('checkin', 'Da')], [('id', 5), ('nume', 'Alexandra'), ('clasa', 'economy plus'), ('pret', 650), ('checkin', 'Nu')]]
+
     rezervari = do_undo(rezervari,undo_list, redo_list)
-    assert rezervari==
+    assert rezervari==[[('id', 4), ('nume', 'Mihai'), ('clasa', 'economy plus'), ('pret', 700), ('checkin', 'Da')], [('id', 5), ('nume', 'Alexandra'), ('clasa', 'economy plus'), ('pret', 650), ('checkin', 'Nu')]]
     rezervari = do_undo(rezervari,undo_list, redo_list)
-    assert rezervari==
+    assert rezervari==[[('id', 4), ('nume', 'Mihai'), ('clasa', 'economy plus'), ('pret', 700), ('checkin', 'Da')]]
+
     rezervari = create(rezervari,7, 'Ilie', 'economy', 100, 'Da', undo_list, redo_list)
-    assert rezervari==
+    assert rezervari==[[('id', 4), ('nume', 'Mihai'), ('clasa', 'economy plus'), ('pret', 700), ('checkin', 'Da')], [('id', 7), ('nume', 'Ilie'), ('clasa', 'economy'), ('pret', 100), ('checkin', 'Da')]]
+
     rezervari = do_redo(rezervari,undo_list, redo_list)
-    assert rezervari==
+    assert rezervari==[[('id', 4), ('nume', 'Mihai'), ('clasa', 'economy plus'), ('pret', 700), ('checkin', 'Da')], [('id', 7), ('nume', 'Ilie'), ('clasa', 'economy'), ('pret', 100), ('checkin', 'Da')]]
+
     rezervari = do_undo(rezervari,undo_list, redo_list)
-    assert rezervari==
+    assert rezervari==[[('id', 4), ('nume', 'Mihai'), ('clasa', 'economy plus'), ('pret', 700), ('checkin', 'Da')]]
+
     rezervari = do_undo(rezervari,undo_list, redo_list)
-    assert rezervari==
+    assert rezervari==[]
     rezervari = do_redo(rezervari, undo_list, redo_list)
-    assert rezervari==
+    assert rezervari==[]
     rezervari = do_redo(rezervari,undo_list, redo_list)
-    assert rezervari==
+    assert rezervari==[[('id', 4), ('nume', 'Mihai'), ('clasa', 'economy plus'), ('pret', 700), ('checkin', 'Da')]]
+
     rezervari = do_redo(rezervari,undo_list, redo_list)
-    assert rezervari==
+    assert rezervari==[[('id', 4), ('nume', 'Mihai'), ('clasa', 'economy plus'), ('pret', 700), ('checkin', 'Da')]]
+
 
 
 
