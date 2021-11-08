@@ -18,7 +18,7 @@ def show_menu():
     print ('r.Redo')
     print('e.Exit')
 
-def adaugare(rezervari):
+def adaugare(rezervari,undo_list,redo_list):
     """
     adauga in lista o rezervare noua
     :param rezervari: lista cu rezervarile actuale
@@ -35,7 +35,10 @@ def adaugare(rezervari):
         if checkin_rezervare not in ['Da', 'Nu']:
             raise ValueError(f'Singurele varinate de checkin acceptate sunt : Da sau Nu')
         print('Adaugarea a fost inregistrata.')
-        return create(rezervari, id_rezervare, nume_rezervare, clasa_rezervare, pret_rezervare, checkin_rezervare)
+        rezultat= create(rezervari, id_rezervare, nume_rezervare, clasa_rezervare, pret_rezervare, checkin_rezervare,undo_list,redo_list)
+        undo_list.append(rezervari)
+        redo_list.clear()
+        return rezultat
     except ValueError as ve:
         print("Eroarea:",ve)
     return rezervari
@@ -49,7 +52,7 @@ def afisare(rezervari):
         print(get_all(rezervare))
 
 
-def stergere(rezervari):
+def stergere(rezervari,undo_list,redo_list):
     """
     sterge o rezervare dorita
     :param rezervari: rezervarile actuale
@@ -57,15 +60,17 @@ def stergere(rezervari):
     """
     try:
         id_sters = int(input("Dati id-ul rezervarii pe care doriti sa o eliminati"))
-        rezervari = delete(rezervari, id_sters)
+        rezultat = delete(rezervari, id_sters,undo_list,redo_list)
         print("Stergerea a fost efectuata cu succes.")
-        return rezervari
+        undo_list.append(rezervari)
+        redo_list.clear()
+        return rezultat
     except ValueError as ve:
         print('Eroare:',ve)
     return rezervari
 
 
-def modificare(rezervari):
+def modificare(rezervari,undo_list,redo_list):
     """
     modifca o rezervare
     :param rezervari: rezervarile curente
@@ -77,11 +82,12 @@ def modificare(rezervari):
     pret_rezervare = int(input('Dati pretul biletului:'))
     checkin_rezervare = input('A fost facut checkin-ul ?:')
     print("Modificarea s-a efectuat cu succes.")
-    return update(rezervari,
-                  creeaza_rezervare(id_rezervare, nume_rezervare, clasa_rezervare, pret_rezervare, checkin_rezervare))
+    rezultat =update(rezervari,creeaza_rezervare(id_rezervare, nume_rezervare, clasa_rezervare, pret_rezervare, checkin_rezervare),undo_list,redo_list)
+    undo_list.append(rezervari)
+    redo_list.clear()
+    return rezultat
 
-
-def CRUD_MENU(rezervari):
+def CRUD_MENU(rezervari,undo_list,redo_list):
     """
     submeniul pentru optiunea 1
     :param rezervari: lista de rezervari
@@ -95,15 +101,16 @@ def CRUD_MENU(rezervari):
         print('a.Afiseaza lista de rezervari.')
         optiune = input('Alege optiunea:')
         if optiune == '1':
-            rezervari = adaugare(rezervari)
+            rezervari = adaugare(rezervari,undo_list,redo_list)
         elif optiune == '2':
-            rezervari = modificare(rezervari)
+            rezervari = modificare(rezervari,undo_list,redo_list)
         elif optiune == '3':
-            rezervari = stergere(rezervari)
+            rezervari = stergere(rezervari,undo_list,redo_list)
         elif optiune == 'a':
             afisare(rezervari)
         elif optiune == '4':
             return rezervari
+
 
 
 def run_ui(rezervari):
@@ -112,44 +119,52 @@ def run_ui(rezervari):
     :param rezervari: lista cu rezervari
     :return: lista cu rezervari dupa modificarile aferente
     """
-    rezervari = get_data()
+    undo_list=[]
+    redo_list=[]
     while True:
         show_menu()
         optiune = input('Alege optiunea: ')
         if optiune == '1':
-            rezervari = CRUD_MENU(rezervari)
+            rezervari = CRUD_MENU(rezervari,undo_list,redo_list)
         elif optiune == '2':
             try:
                 nume_upgrade = input('Dati numele persoanei careia vreti sa ii upgradati clasa:')
-                rezervari = Upgrade(rezervari, nume_upgrade)
+                rezervari = Upgrade(rezervari, nume_upgrade,undo_list,redo_list)
                 print("Upgrade-ul s-a realizat.")
             except ValueError as ve:
                 print ('Eroare',ve)
         elif optiune == '3':
             try:
                 procent_ieftinire=float(input('Dati procentul cu care vreti sa se ieftineasca pretul biletelor(intre 0 si 100'))
-                rezervari= ieftinire_checkin(rezervari, procent_ieftinire)
+                rezervari= ieftinire_checkin(rezervari, procent_ieftinire,undo_list,redo_list)
                 print('preturile au fost reduse.')
             except ValueError as ve:
                 print('Eroare',ve)
         elif optiune == '4':
             print(pret_max(rezervari))
         elif optiune == '5':
-            rezervari=ordonare_desc(rezervari)
+            rezervari=ordonare_desc(rezervari,undo_list,redo_list)
         elif optiune =='6':
             print(pret_pasager(rezervari))
-        elif optiune =='u':
-            pass
         elif optiune == 'e':
             break
         elif optiune == 'a':
             afisare(rezervari)
         elif optiune == '7':
             rezervari=command_line(rezervari)
+        elif optiune == 'u':
+            if len(undo_list) > 0:
+                print('S-a efectuat undo.')
+                redo_list.append(rezervari)
+                rezervari = undo_list.pop()
+            else:
+                print('Nu se poate face Undo.')
         elif optiune =='r':
-            pass
+            if len(redo_list)>0:
+                rezervari=redo_list.pop()
+                print('S-a efectuat redo.')
+            else:
+                print('Nu se poate face redo.')
         else:
             print("ati introdus o optiune gresita")
-
-
     return rezervari

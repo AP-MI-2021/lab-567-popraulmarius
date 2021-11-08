@@ -20,9 +20,11 @@ def test_create():
      testeaza functia create
     '''
     rezervari= get_data()
+    undo_list=[]
+    redo_list=[]
     params= (12,'Radu','business',1000,'Da')
     rezervare_noua=creeaza_rezervare(*params)
-    noi_rezervari= create(rezervari, *params)
+    noi_rezervari= create(rezervari, *params,undo_list,redo_list)
     assert rezervare_noua in noi_rezervari
 def test_read():
     '''
@@ -37,8 +39,10 @@ def test_update():
     testeaza daca functia update functioneaza
     '''
     rezervari=get_data()
+    undo_list=[]
+    redo_list=[]
     r_updated= creeaza_rezervare(5,'Radu','business',1000,'Da')
-    updated= update(rezervari,r_updated)
+    updated= update(rezervari,r_updated,undo_list,redo_list)
     assert r_updated in updated
     assert r_updated not in rezervari
     assert len(updated) == len(rezervari)
@@ -49,8 +53,10 @@ def test_delete():
     '''
     rezervari=get_data()
     to_delete=3
+    undo_list=[]
+    redo_list=[]
     r_deleted=read(rezervari,to_delete)
-    deleted= delete(rezervari,to_delete)
+    deleted= delete(rezervari,to_delete,undo_list,redo_list)
     assert r_deleted not in deleted
     assert r_deleted in rezervari
     assert len(deleted)==len(rezervari)--1
@@ -59,23 +65,36 @@ def test_upgrade():
     '''
     testeaza daca functia upgrade functioneaza
     '''
+    undo_list=[]
+    redo_list=[]
     rezervari=get_data()
     rezervare=creeaza_rezervare(3, 'Ilie', 'economy plus', 100, 'Da')
-    rezervari=Upgrade(rezervari,'Ilie')
+    rezervari=Upgrade(rezervari,'Ilie',undo_list,redo_list)
     assert rezervare in rezervari
 
 def test_ieftinire():
     '''
     testeaza daca functia ieftinire functioneaza
     '''
+    undo_list=[]
+    redo_list=[]
     rezervari = get_data()
     rezervare= creeaza_rezervare(3, 'Ilie', 'economy', 70, 'Da')
-    rezervari= ieftinire_checkin(rezervari, 30)
+    rezervari= ieftinire_checkin(rezervari, 30,undo_list,redo_list)
     assert rezervare in rezervari
 
+def test_pret_max():
+    pass
+def test_ord_desc():
+    pass
+def test_suma_pret():
+    pass
 def test_all():
     test_create()
     test_read()
     test_update()
     test_upgrade()
     test_ieftinire()
+    test_pret_max()
+    test_suma_pret()
+    test_ord_desc()

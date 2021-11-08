@@ -1,6 +1,6 @@
 from Domain.Rezervari import *
 from Logic.CRUD import *
-def Upgrade(lista_rezervari,nume_dat):
+def Upgrade(lista_rezervari,nume_dat,undo_list,redo_list):
     '''
     Trece la o clasa superioara rezervarea unui nume dat
     :param lista_rezervari: lista de rezervari actuala
@@ -31,4 +31,6 @@ def Upgrade(lista_rezervari,nume_dat):
                     ('checkin',get_checkin(rezervare))
                 ]
             )
+    undo_list.append(lista_rezervari)
+    redo_list.clear()
     return lista_noua

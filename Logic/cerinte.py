@@ -1,5 +1,5 @@
 from Domain.Rezervari import *
-def ieftinire_checkin(lista_rezervari, procent_dat):
+def ieftinire_checkin(lista_rezervari, procent_dat,undo_list,redo_list):
     '''
     ieftineste pretul biletului daca checkin-ul a fost facut
     :param lista_rezervari: lista cu rezervari
@@ -9,6 +9,8 @@ def ieftinire_checkin(lista_rezervari, procent_dat):
     if not (0< procent_dat < 100):
         raise ValueError('Procentajul trebuie sa fie intre 0 si 100.')
     lista_noua = []
+    undo_list.append(lista_rezervari)
+    redo_list.clear()
     for rezervare in lista_rezervari:
         if get_checkin(rezervare) == "Nu":
             lista_noua.append(rezervare)
@@ -47,5 +49,7 @@ def pret_pasager(lista_rezervari):
         else:
             tarife_nume[nume]=pret
     return tarife_nume
-def ordonare_desc(lista_rezervari):
+def ordonare_desc(lista_rezervari,undo_list,redo_list):
+    undo_list.append(lista_rezervari)
+    redo_list.clear()
     return sorted(lista_rezervari,key=lambda rezervare : get_pret(rezervare),reverse=1)
